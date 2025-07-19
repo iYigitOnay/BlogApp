@@ -2,21 +2,21 @@ const express = require("express");
 
 const app = express();
 
-app.use("/blog/:blogId", function (req, res, next) {
-  console.log(`Blog post ${req.params.blogId} accessed`);
-  console.log("Blog post 1128 accessed");
+app.use("/blog/:blogid/users/:userid", function (req, res) {
+  console.log(
+    "User route accessed for blog ID:",
+    req.params.blogid,
+    "and user ID:",
+    req.params.userid
+  );
   res.send("<html><body><h1>Blog Post 1128</h1></body></html>");
-  next();
 });
 
-app.use("/blog", function (req, res, next) {
-  console.log("About route accessed");
+app.use("/blog", function (req, res) {
   res.send("<html><body><h1>Blog Page</h1></body></html>");
-  next();
 });
 
 app.use("/", function (req, res) {
-  console.log("Home route accessed");
   res.send("<html><body><h1>Home Page</h1></body></html>");
 });
 
