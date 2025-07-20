@@ -2,6 +2,8 @@ const express = require("express");
 const path = require("path");
 const app = express();
 
+app.use(express.static("node_modules"));
+
 app.use("/blogs/:blogid", function (req, res) {
   res.sendFile(path.join(__dirname, "views", "users", "blog-details.html"));
 });
