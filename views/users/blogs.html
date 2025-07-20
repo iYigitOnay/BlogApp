@@ -3,10 +3,139 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mely</title>
+    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" />
+    <title>Ana Sayfa</title>
   </head>
   <body>
-    <h1>Bloglar</h1>
-    <p>Bu, kullanıcıların blog sayfasıdır.</p>
+    <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
+      <div class="container">
+        <a href="Mely" class="navbar-brand">MELY/blog</a>
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a href="/blogs" class="nav-link">Bloglar</a>
+          </li>
+          <li class="nav-item">
+            <a href="/users" class="nav-link">Kullanıcılar</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="list-group">
+            <a href="/blogs" class="list-group-item list-group-item-action"
+              >Bloglar</a
+            >
+            <a href="/users" class="list-group-item list-group-item-action"
+              >Kullanıcılar</a
+            >
+            <a href="/about" class="list-group-item list-group-item-action"
+              >Hakkında</a
+            >
+          </div>
+        </div>
+
+        <div class="col-md-9">
+          <h1 class="h3 mb-3">Blog Sayfası</h1>
+          <div class="card mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="/static/images/1.jpg"
+                  class="card-img-top"
+                  alt="Blog Resmi"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <h5 class="card-title">Blog Başlığı</h5>
+                  <p class="card-text">
+                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
+                    lütfen blog detaylarına gidin.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="/static/images/2.jpg"
+                  class="card-img-top"
+                  alt="Blog Resmi"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <h5 class="card-title">Blog Başlığı</h5>
+                  <p class="card-text">
+                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
+                    lütfen blog detaylarına gidin.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="/static/images/3.png"
+                  class="card-img-top"
+                  alt="Blog Resmi"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <h5 class="card-title">Blog Başlığı</h5>
+                  <p class="card-text">
+                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
+                    lütfen blog detaylarına gidin.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mb-3">
+            <div class="row">
+              <div class="col-md-3">
+                <img
+                  src="/static/images/4.jpg"
+                  class="card-img-top"
+                  alt="Blog Resmi"
+                />
+              </div>
+              <div class="col-md-9">
+                <div class="card-body">
+                  <h5 class="card-title">Blog Başlığı</h5>
+                  <p class="card-text">
+                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
+                    lütfen blog detaylarına gidin.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <nav>
+            <ul class="pagination justify-content-center">
+              <li class="page-item">
+                <a class="page-link" href="#">Önceki</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Sonraki</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
