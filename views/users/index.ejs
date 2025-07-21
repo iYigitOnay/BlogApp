@@ -1,59 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.min.css" />
-    <title>Ana Sayfa</title>
+    <%- include('../partials/head') %>
   </head>
   <body>
-    <nav class="navbar navbar-dark bg-primary navbar-expand-lg">
-      <div class="container">
-        <a href="Mely" class="navbar-brand">MELY/blog</a>
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <a href="/blogs" class="nav-link">Bloglar</a>
-          </li>
-          <li class="nav-item">
-            <a href="/users" class="nav-link">Kullanıcılar</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <%- include('../partials/nav') %>
 
     <div class="container mt-3">
       <div class="row">
         <div class="col-md-3">
-          <div class="list-group">
-            <% catagories.forEach(function(catagory) { %>
-            <a href="#" class="list-group-item list-group-item-action">
-              <%= catagory %>
-            </a>
-            <% }) %>
-          </div>
+          <%- include("../partials/category-menu", categories) %>
         </div>
-
         <div class="col-md-9">
           <h1 class="h3 mb-3"><%=title %></h1>
-          <% blogs.forEach(blog => { %> <% if (blog.mainpage) { %>
-          <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-3">
-                <img
-                  src="/static/images/<%=blog.blogimage %>"
-                  class="card-img-top"
-                  alt="Blog Resmi"
-                />
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title"><%= blog.title %></h5>
-                  <p class="card-text"><%= blog.description %></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <% } %> <% }) %>
+          <% blogs.forEach(blog => { %> <% if (blog.mainpage) { %> <%-
+          include('../partials/blog-card', blog) %> <% } %> <% }) %>
         </div>
       </div>
     </div>

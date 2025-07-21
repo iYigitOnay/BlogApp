@@ -3,7 +3,7 @@ const router = express.Router();
 
 const data = {
   title: "Popular Blogs",
-  catagories: ["Blogs", "Health", "Lifestyle", "Travel", "Food"],
+  categories: ["Blogs", "Health", "Lifestyle", "Travel", "Food"],
   blogs: [
     {
       blogId: "1",
