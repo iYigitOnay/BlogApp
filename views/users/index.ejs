@@ -25,20 +25,16 @@
       <div class="row">
         <div class="col-md-3">
           <div class="list-group">
-            <a href="/blogs" class="list-group-item list-group-item-action"
-              >Bloglar</a
-            >
-            <a href="/users" class="list-group-item list-group-item-action"
-              >Kullanıcılar</a
-            >
-            <a href="/about" class="list-group-item list-group-item-action"
-              >Hakkında</a
-            >
+            <% for( let i = 0; i < catagories.length; i++ ) { %>
+            <a class="list-group-item list-group-item-action">
+              <%= catagories[i] %>
+            </a>
+            <% } %>
           </div>
         </div>
 
         <div class="col-md-9">
-          <h1 class="h3 mb-3">Ana Sayfa</h1>
+          <h1 class="h3 mb-3"><%=title %></h1>
           <div class="card mb-3">
             <div class="row">
               <div class="col-md-3">
