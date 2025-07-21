@@ -4,6 +4,10 @@ const app = express();
 const route = require("./routes/user.js");
 const adminRoute = require("./routes/admin.js");
 
+app.set("view engine", "ejs");
+
+console.log(app.get("view engine"));
+
 app.use("/libs", express.static(path.join(__dirname, "node_modules")));
 app.use("/static", express.static(path.join(__dirname, "public")));
 
