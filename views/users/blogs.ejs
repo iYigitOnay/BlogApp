@@ -25,103 +25,36 @@
       <div class="row">
         <div class="col-md-3">
           <div class="list-group">
-            <a href="/blogs" class="list-group-item list-group-item-action"
-              >Bloglar</a
-            >
-            <a href="/users" class="list-group-item list-group-item-action"
-              >Kullanıcılar</a
-            >
-            <a href="/about" class="list-group-item list-group-item-action"
-              >Hakkında</a
-            >
+            <% catagories.forEach(function(catagory) { %>
+            <a href="#" class="list-group-item list-group-item-action">
+              <%= catagory %>
+            </a>
+            <% }) %>
           </div>
         </div>
 
         <div class="col-md-9">
-          <h1 class="h3 mb-3">Blog Sayfası</h1>
+          <h1 class="h3 mb-3"><%=title %></h1>
+          
+          <% blogs.forEach(blog => { %>
           <div class="card mb-3">
             <div class="row">
               <div class="col-md-3">
                 <img
-                  src="/static/images/1.jpg"
+                  src="/static/images/<%=blog.blogimage %>"
                   class="card-img-top"
                   alt="Blog Resmi"
                 />
               </div>
               <div class="col-md-9">
                 <div class="card-body">
-                  <h5 class="card-title">Blog Başlığı</h5>
-                  <p class="card-text">
-                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
-                    lütfen blog detaylarına gidin.
-                  </p>
+                  <h5 class="card-title"><%= blog.title %></h5>
+                  <p class="card-text"><%= blog.description %></p>
                 </div>
               </div>
             </div>
           </div>
-
-          <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-3">
-                <img
-                  src="/static/images/2.jpg"
-                  class="card-img-top"
-                  alt="Blog Resmi"
-                />
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title">Blog Başlığı</h5>
-                  <p class="card-text">
-                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
-                    lütfen blog detaylarına gidin.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-3">
-                <img
-                  src="/static/images/3.png"
-                  class="card-img-top"
-                  alt="Blog Resmi"
-                />
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title">Blog Başlığı</h5>
-                  <p class="card-text">
-                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
-                    lütfen blog detaylarına gidin.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card mb-3">
-            <div class="row">
-              <div class="col-md-3">
-                <img
-                  src="/static/images/4.jpg"
-                  class="card-img-top"
-                  alt="Blog Resmi"
-                />
-              </div>
-              <div class="col-md-9">
-                <div class="card-body">
-                  <h5 class="card-title">Blog Başlığı</h5>
-                  <p class="card-text">
-                    Bu, blog içeriğinin kısa bir özetidir. Daha fazla bilgi için
-                    lütfen blog detaylarına gidin.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          <% }) %>
           <nav>
             <ul class="pagination justify-content-center">
               <li class="page-item">
