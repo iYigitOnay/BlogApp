@@ -37,18 +37,42 @@ const data = {
   ],
 };
 
+router.use("/blogs/category/:categoryId", async function (req, res) {
+  const id = req.params.categoryId;
+
+  try {
+    const [blogs] = await db.execute(
+      "SELECT * FROM blog WHERE categoryId = ?",
+      [id]
+    );
+    const [categories] = await db.execute("SELECT * FROM category");
+    res.render("users/blogs", {
+      title: "Tüm Kurslar",
+      blogs: blogs,
+      categories: categories,
+      selectedCategory: id,
+    });
+  } catch (err) {
+    console.error("Error fetching blogs by category:", err);
+  }
+});
+
 // /blogs/:blogid
 router.use("/blogs/:blogid", async function (req, res) {
   const blogId = req.params.blogid;
   try {
-    const [blog] = await db.execute("SELECT * FROM blog WHERE blogId = ?", [
+    const [blogs] = await db.execute("SELECT * FROM blog WHERE blogId = ?", [
       blogId,
     ]);
+    const blog = blogs[0];
 
-    res.render("users/blog-details", {
-      title: blog[0].title,
-      blog: blog[0],
-    });
+    if (blog) {
+      return res.render("users/blog-details", {
+        title: blog.title,
+        blog: blog,
+      });
+    }
+    res.redirect("/");
   } catch (err) {
     console.error("Error fetching blog details:", err);
   }
@@ -63,6 +87,7 @@ router.use("/blogs", async function (req, res) {
       title: "Tüm Kurslar",
       blogs: blogs,
       categories: categories,
+      selectedCategory: null,
     });
   } catch (err) {
     console.error("Error fetching blogs:", err);
@@ -80,6 +105,7 @@ router.use("/", async function (req, res) {
       title: "Ana Sayfa",
       blogs: blogs,
       categories: categories,
+      selectedCategory: null,
     });
   } catch (err) {
     console.error("Error fetching blogs:", err);
