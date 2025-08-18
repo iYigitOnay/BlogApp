@@ -86,4 +86,4 @@ CREATE TABLE blog (
 
 - **İhsan Yiğit Önay**  
   Mehmet Akif Ersoy Üniversitesi - Yazılım Mühendisliği  
-  GitHub: [@yigitonay](https://github.com/yigitonay)
+  GitHub: [@iYigitOnay](https://github.com/iYigitOnay)
