@@ -2,15 +2,17 @@
   <div class="row">
     <div class="col-md-3">
       <img
-        src="/static/images/<%=blogimage %>"
+        src="/static/images/<%= blog.blogimage %>"
         class="card-img-top"
         alt="Blog Resmi"
       />
     </div>
     <div class="col-md-9">
       <div class="card-body">
-        <h5 class="card-title"><%= title %></h5>
-        <p class="card-text"><%= description %></p>
+        <a style="text-decoration: none" href="/blogs/<%= blog.blogId %>">
+          <h5 class="card-title"><%= blog.title %></h5></a
+        >
+        <p class="card-text"><%= blog.description %></p>
       </div>
     </div>
   </div>
