@@ -1,16 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <%- include('../partials/head') %>
   </head>
   <body>
-    <h1>Admin Blog List</h1>
-    <ul>
-      <li><a href="/blogs/1">Blog 1</a></li>
-      <li><a href="/blogs/2">Blog 2</a></li>
-      <li><a href="/blogs/3">Blog 3</a></li>
-    </ul>
+    <%- include('../partials/nav') %>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-md-12 mt-3">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th style="width: 50px">ID</th>
+                <th style="width: 150px">Image</th>
+                <th>Title</th>
+                <th style="width: 130px"></th>
+              </tr>
+            </thead>
+            <tbody>
+              <% blogs.forEach(blog => { %>
+              <tr>
+                <td><%= blog.blogId %></td>
+                <td>
+                  <img
+                    src="/static/images/<%= blog.blogimage %>"
+                    class="img-fluid"
+                  />
+                </td>
+                <td><%= blog.title %></td>
+                <td>
+                  <a
+                    class="btn btn-sm btn-primary"
+                    href="/admin/blogs/<%= blog.blogId %>"
+                    >Edit
+                  </a>
+                  <a
+                    class="btn btn-sm btn-danger"
+                    href="/admin/blogs/<%= blog.blogId %>"
+                    >Delete
+                  </a>
+                </td>
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
