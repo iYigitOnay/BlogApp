@@ -6,6 +6,7 @@ const adminRoute = require("./routes/admin.js");
 
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 console.log(app.get("view engine"));
 

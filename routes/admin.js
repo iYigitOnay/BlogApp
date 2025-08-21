@@ -6,18 +6,16 @@ const db = require("../data/db");
 router.get("/admin/blog/create", async function (req, res) {
   try {
     const [categories] = await db.query("SELECT * FROM category");
-
-    res.render("admin/blog-create", {
+    return res.render("admin/blog-create", {
       title: "Create Blog",
-      categories, // burada çoğul kullanmak daha iyi
+      categories,
     });
-  } catch (error) {
-    console.error("Error rendering blog create page:", error);
-    res.status(500).send("Sayfa yüklenirken hata oluştu.");
+  } catch (err) {
+    console.error("Error rendering blog create page:", err);
   }
 });
 
-router.post("/admin/blog/create", async function (req, res) {
+router.post("/admin/blogs/create", async function (req, res) {
   const baslik = req.body.baslik;
   const aciklama = req.body.aciklama;
   const resim = req.body.resim;
@@ -30,13 +28,56 @@ router.post("/admin/blog/create", async function (req, res) {
       [baslik, aciklama, resim, Anasayfa, kategori]
     );
     return res.redirect("/admin/blogs");
-  } catch (error) {
-    console.error("Error inserting blog:", error);
-    res.status(500).send("Blog eklenirken hata oluştu.");
+  } catch (err) {
+    console.error("Error inserting blog:", err);
   }
 });
-router.get("/admin/blog/:blogid", function (req, res) {
-  res.render("admin/blog-edit");
+
+router.get("/admin/blogs/:blogid", async function (req, res) {
+  const blogId = req.params.blogid;
+  try {
+    const [blogs] = await db.execute("SELECT * FROM blog WHERE blogId = ?", [
+      blogId,
+    ]);
+    const [categories] = await db.query("SELECT * FROM category");
+    const blog = blogs[0];
+    if (blog) {
+      return res.render("admin/blog-edit", {
+        title: blog.title,
+        blog,
+        categories,
+      });
+    }
+  } catch (err) {
+    console.error("Error fetching blog for editing:", err);
+  }
+});
+
+router.post("/admin/blogs/:blogid", async function (req, res) {
+  const blogId = req.body.blogid;
+  const baslik = req.body.baslik;
+  const aciklama = req.body.aciklama;
+  const resim = req.body.resim;
+  const Anasayfa = req.body.Anasayfa == "on" ? 1 : 0;
+  const kategori = req.body.kategori;
+
+  try {
+    await db.execute(
+      "UPDATE blog SET title = ?, description = ?, blogimage = ?, mainpage = ?, categoryId = ? WHERE blogId = ?"[
+        (baslik, aciklama, resim, Anasayfa, kategori, blogId)
+      ]
+    );
+    console.log("Blog güncellendi:", blogId);
+    console.log("Başlık:", baslik);
+    console.log("Açıklama:", aciklama);
+    console.log("Resim:", resim);
+    console.log("Anasayfa:", Anasayfa);
+    console.log("Kategori:", kategori);
+
+    res.redirect("/admin/blogs");
+  } catch {
+    console.error("Error updating blog:", err);
+  }
 });
 
 router.get("/admin/blogs", async function (req, res) {
@@ -47,7 +88,7 @@ router.get("/admin/blogs", async function (req, res) {
       blogs,
     });
   } catch {
-    console.error("Error fetching blogs:", error);
+    console.error("Error fetching blogs:", err);
   }
 });
 
