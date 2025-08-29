@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
-
+const imageUpload = require("../helpers/image-upload");
 const db = require("../data/db");
+const fs = require("fs");
 
-router.get("/admin/blog/delete/:blogid", async function (req, res) {
+router.get("/admin/blogs/delete/:blogid", async function (req, res) {
   const blogId = req.params.blogid;
   try {
     const [blogs] = await db.execute("SELECT * FROM blog WHERE blogId= ?", [
@@ -19,7 +20,7 @@ router.get("/admin/blog/delete/:blogid", async function (req, res) {
   }
 });
 
-router.post("/admin/blog/delete/:blogid", async function (req, res) {
+router.post("/admin/blogs/delete/:blogid", async function (req, res) {
   const blogId = req.params.blogid;
   try {
     await db.execute("DELETE FROM blog WHERE blogId = ?", [blogId]);
@@ -68,23 +69,27 @@ router.get("/admin/blog/create", async function (req, res) {
   }
 });
 
-router.post("/admin/blogs/create", async function (req, res) {
-  const baslik = req.body.baslik;
-  const aciklama = req.body.aciklama;
-  const resim = req.body.resim;
-  const kategori = req.body.kategori;
-  const Anasayfa = req.body.Anasayfa == "on" ? 1 : 0;
+router.post(
+  "/admin/blog/create",
+  imageUpload.single("resim"),
+  async function (req, res) {
+    const baslik = req.body.baslik;
+    const aciklama = req.body.aciklama;
+    const resim = req.file ? req.file.filename : null;
+    const kategori = req.body.kategori;
+    const Anasayfa = req.body.Anasayfa == "on" ? 1 : 0;
 
-  try {
-    await db.execute(
-      "INSERT INTO blog (title, description, blogimage, mainpage, categoryId) VALUES ( ?, ?, ?, ?, ?)",
-      [baslik, aciklama, resim, Anasayfa, kategori]
-    );
-    return res.redirect("/admin/blogs?action=create");
-  } catch (err) {
-    console.error("Error inserting blog:", err);
+    try {
+      await db.execute(
+        "INSERT INTO blog (title, description, blogimage, mainpage, categoryId) VALUES ( ?, ?, ?, ?, ?)",
+        [baslik, aciklama, resim, Anasayfa, kategori]
+      );
+      return res.redirect("/admin/blogs?action=create");
+    } catch (err) {
+      console.error("Error inserting blog:", err);
+    }
   }
-});
+);
 
 router.get("/admin/category/create", async function (req, res) {
   try {
@@ -127,29 +132,40 @@ router.get("/admin/blogs/:blogid", async function (req, res) {
   }
 });
 
-router.post("/admin/blogs/:blogid", async function (req, res) {
-  const blogId = req.params.blogid; // Tek kaynak
-  const title = req.body.title;
-  const description = req.body.description;
-  const blogimage = req.body.blogimage;
-  const mainpage = req.body.mainpage === "on" ? 1 : 0;
-  const categoryId = req.body.categoryId;
+router.post(
+  "/admin/blogs/:blogid",
+  imageUpload.single("blogimage"),
+  async function (req, res) {
+    const blogId = req.params.blogid; // Tek kaynak
+    const title = req.body.title;
+    const description = req.body.description;
 
-  if (!blogId) return res.status(400).send("Blog ID eksik");
+    if (req.file) {
+      blogimage = req.file.filename; // Yüklenen dosyanın adı
+      fs.unlink("public/images/" + req.body.blogimage_old, (err) => {
+        if (err) console.error("Error deleting old image:", err);
+      }); // Eski dosyayı sil}
+    }
 
-  try {
-    const [result] = await db.execute(
-      "UPDATE blog SET title = ?, description = ?, blogimage = ?, mainpage = ?, categoryId = ? WHERE blogId = ?",
-      [title, description, blogimage, mainpage, categoryId, blogId]
-    );
+    const mainpage = req.body.mainpage === "on" ? 1 : 0;
+    const categoryId = req.body.categoryId;
 
-    console.log("UPDATE result:", result);
-    return res.redirect("/admin/blogs?action=edit");
-  } catch (err) {
-    console.error("Error updating blog:", err);
-    return res.status(500).send("Update error");
+    if (!blogId) return res.status(400).send("Blog ID eksik");
+
+    try {
+      const [result] = await db.execute(
+        "UPDATE blog SET title = ?, description = ?, blogimage = ?, mainpage = ?, categoryId = ? WHERE blogId = ?",
+        [title, description, blogimage, mainpage, categoryId, blogId]
+      );
+
+      console.log("UPDATE result:", result);
+      return res.redirect("/admin/blogs?action=edit");
+    } catch (err) {
+      console.error("Error updating blog:", err);
+      return res.status(500).send("Update error");
+    }
   }
-});
+);
 
 router.get("/admin/category/:categoryId", async function (req, res) {
   const categoryId = req.params.categoryId;

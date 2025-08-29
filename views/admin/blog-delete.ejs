@@ -15,7 +15,7 @@
                 ><%= blog.title %></strong
               >"?
             </p>
-             <form method="post" action="/admin/blog/delete/<%= blog.blogId %>">
+            <form method="post" action="/admin/blogs/delete/<%= blog.blogId %>">
               <input type="hidden" name="blogId" value="<%= blog.blogId %>" />
               <button type="submit" class="btn btn-danger">Delete</button>
               <a href="/admin/blogs" class="btn btn-secondary">Close</a>
