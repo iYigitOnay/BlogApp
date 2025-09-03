@@ -145,7 +145,7 @@ router.post(
       fs.unlink("public/images/" + req.body.blogimage_old, (err) => {
         if (err) console.error("Error deleting old image:", err);
       }); // Eski dosyayı sil}
-    }
+    } 
 
     const mainpage = req.body.mainpage === "on" ? 1 : 0;
     const categoryId = req.body.categoryId;

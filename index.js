@@ -4,6 +4,9 @@ const app = express();
 const route = require("./routes/user.js");
 const adminRoute = require("./routes/admin.js");
 
+const Blog = require("./models/blog.js");
+const Category = require("./models/category.js");
+
 app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
