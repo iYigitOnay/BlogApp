@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include('../partials/head') %>
-  </head>
-  <body>
-    <%- include('../partials/nav') %>
+<head>
+    <%- include("../partials/head")  %> 
+</head>
+<body>
+    
+    <%- include("../partials/nav")  %> 
 
     <div class="container mt-3">
-      <div class="row">
-        <div class="col-md-12 mt-3 text-center">
-          <div class="alert alert-secondary">
-            <p>
-              Are you sure you want to delete the blog post titled "<strong
-                ><%= blog.title %></strong
-              >"?
-            </p>
-            <form method="post" action="/admin/blogs/delete/<%= blog.blogId %>">
-              <input type="hidden" name="blogId" value="<%= blog.blogId %>" />
-              <button type="submit" class="btn btn-danger">Delete</button>
-              <a href="/admin/blogs" class="btn btn-secondary">Close</a>
-            </form>
-          </div>
+        <div class="row">
+            <div class="col-md-12 mt-3 text-center">
+               <div class="alert alert-secondary">
+                <p class="mb-3">
+                    <b><%= blog.baslik %> </b> <br> isimli blog kaydınız silmek istiyor musunuz?
+                </p>
+                <form method="post">
+                    <input type="hidden" name="blogid" value="<%= blog.id %>">
+                    <button class="btn btn-danger" type="submit">Evet</button>
+                    <a href="/admin/blogs" class="btn btn-primary">Vazgeç</a>
+                </form>
+               </div>
+            </div>
         </div>
-      </div>
     </div>
-  </body>
+       
+</body>
 </html>
+
+
+
